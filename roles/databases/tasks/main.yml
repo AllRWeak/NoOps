@@ -1,0 +1,4 @@
+---
+- name: INFO
+  debug:
+    msg: "Installing databases..."

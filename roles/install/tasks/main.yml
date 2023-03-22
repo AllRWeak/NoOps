@@ -1,0 +1,27 @@
+---
+# Infra role alyaways gets included
+- name: Including Infra tasks...
+  include_role:
+    name: "{{ playbook_dir }}/roles/infra"
+
+# The following roles get executed only if the respective variable is set to true from the choice in install.sh
+# playbook_dir is a special variable that is set to the path of the playbook being executed
+- name: Including bykstack role...
+  include_role:
+    name: "{{ playbook_dir }}/roles/bykstack"
+  when: bykstack is defined
+
+- name: Including databases role...
+  include_role:
+    name: "{{ playbook_dir }}/roles/databases"
+  when: databases is defined
+
+- name: Including bot role...
+  include_role:
+    name: "{{ playbook_dir }}/roles/bot"
+  when: bot is defined
+
+- name: Including training bot role...
+  include_role:
+    name: "{{ playbook_dir }}/roles/training_bot"
+  when: training_bot is defined

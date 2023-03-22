@@ -1,0 +1,33 @@
+---
+- name: Installing apt_key dependencies...
+  ansible.builtin.apt:
+    update_cache: yes
+    name:
+      - gpg
+      - gpg-agent
+
+- name: Adding Docker GPG apt key...
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    keyring: /etc/apt/trusted.gpg.d/docker.gpg
+    state: present
+
+- name: Adding Docker repository...
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    state: present
+    update_cache: yes
+
+- name: Installing Docker and requirements...
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - python3-setuptools
+      - python3-wheel
+      - python3-pip
+      - python3-jsondiff
+      - docker-compose-plugin
+    state: present
+    update-cache: yes

@@ -1,0 +1,7 @@
+- name: Installing Application...
+  hosts: localhost
+  gather_facts: true
+  become: true
+
+  roles:
+    - role: install
